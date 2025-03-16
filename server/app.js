@@ -100,7 +100,6 @@ cron.schedule('*/15 * * * *', fetchNewsAndStore);
 
 const allowedOrigins = [
     "https://news-ai-new.vercel.app",
-    "https://news-ai-24vc.vercel.app",
     "http://localhost:5173",
 ];
 
