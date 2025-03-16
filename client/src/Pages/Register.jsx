@@ -62,7 +62,7 @@ const Register = () => {
 
     //console.log(loading)
 
-    onsubmitPass = (data, e) => {
+    const onSubmitPass = (data, e) => {
         e.preventDefault();
         dispatch(registerUser(data))
         console.log(data);
@@ -86,7 +86,7 @@ const Register = () => {
                 className='w-96 rounded-xl p-4 shadow-md bg-white'>
                 <h1 className='text-center mb-4 font-bold'>Create your account</h1>
 
-                <form className='w-full' onSubmit={handleSubmit(onsubmitPass)}>
+                <form className='w-full' onSubmit={handleSubmit(onSubmitPass)}>
                     <div className='flex items-center gap-2 my-4'><SquareUserRound className='text-gray-600' size={20} />
                         <input type='Text'
                             className='focus:outline-none borber-b border-gray w-full'
@@ -115,7 +115,7 @@ const Register = () => {
                         <input type={changeInput ? "text" : "password"}
                             className='focus:outline-none borber-b border-gray w-full'
                             placeholder='Confirm password'
-                            {...register("checkPassword")} />
+                            {...register("confirmPassword")} />
                     </div>
                     {errors.confirmPassword && <p className='text-red-700 flex gap-1'><TriangleAlert size={20} /> {errors.confirmPassword.message}</p>}
 
