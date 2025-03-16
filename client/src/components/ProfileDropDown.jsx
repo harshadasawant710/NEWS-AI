@@ -20,7 +20,7 @@ const ProfileDropDown = () => {
     const email = getCookie('email');
 
     return (
-        <div className='me-25'>
+        <div className='me-25' style={{cursor:'pointer'}}>
             {/* <Avatar color="cyan" radius="xl">MK</Avatar> */}
 
             <Menu shadow="md" width={200}>

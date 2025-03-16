@@ -73,7 +73,7 @@ const fetchNewsAndStore = async () => {
     }
 }
 //fetchNewsAndStore()
-//cron.schedule('*/15 * * * *', fetchNewsAndStore);
+cron.schedule('*/15 * * * *', fetchNewsAndStore);
 
 app.use(cors({
     origin: "http://localhost:5173",
@@ -81,6 +81,10 @@ app.use(cors({
 }));
 
 app.use(cookieParser());
+
+app.get('/', (req,res)=>{
+    res.send('HomePage')
+})
 
 
 app.use('/auth', userRoutes)
