@@ -92,9 +92,26 @@ const fetchNewsAndStore = async () => {
 //fetchNewsAndStore()
 cron.schedule('*/15 * * * *', fetchNewsAndStore);
 
+// app.use(cors({
+//     // origin: "http://localhost:5173",
+//     origin:"https://news-ai-new.vercel.app",
+//     credentials: true,
+// }));
+
+const allowedOrigins = [
+    "https://news-ai-new.vercel.app",
+    "https://news-ai-24vc.vercel.app",
+    "http://localhost:5173",
+];
+
 app.use(cors({
-    // origin: "http://localhost:5173",
-    origin:"https://news-ai-new.vercel.app",
+    origin: function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+            callback(null, true);
+        } else {
+            callback(new Error("CORS Not Allowed"));
+        }
+    },
     credentials: true,
 }));
 
