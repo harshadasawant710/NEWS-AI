@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
         })
     }
 
-    const decoded = jwt.verify(token, 'hello_this_string')
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.user = decoded
     next()
     console.log('.........veryfytoken middleware is running')

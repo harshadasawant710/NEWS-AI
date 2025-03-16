@@ -20,7 +20,8 @@ export const login = async (req, res) => {
                 message: 'Password do not match'
             })
         }
-        const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, process.env.JWT_SECRET || 'hello_this_string', { expiresIn: '1d' })
+        const token = jwt.sign({ id: user._id, name: user.name, email: user.email },
+             process.env.JWT_SECRET , { expiresIn: '1d' })
 
         res.cookie('token', token, {
             httpOnly: true,
@@ -114,7 +115,7 @@ export const googleLogin = async (req, res) => {
         // here //
         console.log("Google Token Payload:", { id: user._id, name: user.name, email: user.email });
 
-        const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, 'hello_this_string', { expiresIn: '1d' })
+        const token = jwt.sign({ id: user._id, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1d' })
 
         res.cookie('token', token, {
             httpOnly: true,
