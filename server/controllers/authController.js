@@ -25,7 +25,8 @@ export const login = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             maxAge: 15 * 24 * 60,
-            sameSite: 'Strict'
+            sameSite: 'none',
+            secure: true
         })
         console.log("Cookie Set:", token);
 
@@ -118,7 +119,8 @@ export const googleLogin = async (req, res) => {
         res.cookie('token', token, {
             httpOnly: true,
             maxAge: 15 * 24 * 60,
-            sameSite: 'Strict'
+            sameSite: 'none',
+            secure: true
         })
 
         res.status(200).json({
