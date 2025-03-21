@@ -12,10 +12,12 @@ const initialState = {
     totalItems: 0
 }
 
-const id = getCookie('id');
+//const id = getCookie('id');
 
 export const setPrefrenece = createAsyncThunk('/prefereneces', async (data, { rejectWithValue }) => {
     try {
+        const id = getCookie('id');  
+        if (!id) throw new Error("User ID is missing!");
         const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/preferences/${id}`, data);
         return res.data
     }
@@ -29,12 +31,12 @@ export const fetchAllNews = createAsyncThunk('/fetchallnews', async ({ currentPa
     try {
         // const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/news?page=${currentPage}&category=${category}&keyword=${search}`)
 
-        let apiUrl = `${import.meta.env.VITE_API_URL}/api/news?page=${currentPage}`; 
+        let apiUrl = `${import.meta.env.VITE_API_URL}/api/news?page=${currentPage}`;
 
         if (search) {
             apiUrl += `&keyword=${search}`;
         }
-        if (category && !search) { 
+        if (category && !search) {
             apiUrl += `&category=${category}`;
         }
 

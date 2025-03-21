@@ -3,9 +3,10 @@ import authreduce from './slice/authSlice'
 import { configureStore } from '@reduxjs/toolkit'
 import loadingReduces from './slice/Loading'
 import newsReducer from './slice/newsSlice'
-import readingHistoryReducer from './slice/readingHistroy'; // ✅ Fixed the import name
-import bookmarksReducer from './slice/BookMarkSlice'; // ✅ Correct import
+import readingHistoryReducer from './slice/readingHistroy'; 
+import bookmarksReducer from './slice/BookMarkSlice'; 
 import summariesReducer from './slice/summarySlice'
+import userReducer from './slice/userSlice'
 
 const store = configureStore({
     reducer: {
@@ -14,7 +15,8 @@ const store = configureStore({
         news: newsReducer,
         readingHistory: readingHistoryReducer,
         bookmarks: bookmarksReducer,
-        summaries: summariesReducer
+        summaries: summariesReducer,
+        users: userReducer,
 
     }
 })

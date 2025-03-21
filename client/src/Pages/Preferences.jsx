@@ -5,7 +5,7 @@ import { Button } from '@mantine/core'
 import { Fade } from 'react-awesome-reveal'
 import { setPrefrenece } from '../Redux/slice/newsSlice'
 import { useDispatch } from 'react-redux'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 const Preferences = () => {
@@ -33,8 +33,8 @@ const Preferences = () => {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    
-    const handleSavePrefereneces = async() => {
+
+    const handleSavePrefereneces = async () => {
         await dispatch(setPrefrenece({ preferences: selectedCatagory }))
         navigate('/')
     }

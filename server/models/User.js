@@ -83,6 +83,15 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role: {
+        type : String,
+        enum: ['user', 'admin'],
+        default: 'admin'
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     preferences: [String],
     bookmarks: [{
         type: mongoose.Schema.Types.Mixed, // Allows arbitrary objects
