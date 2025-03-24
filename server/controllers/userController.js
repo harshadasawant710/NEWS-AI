@@ -22,7 +22,7 @@ export const getUser = async (req, res) => {
     }
 }
 
-export const deleterUser = async () => {
+export const deleterUser = async (req,res) => {
     const {id} = req.params;
 
     try {

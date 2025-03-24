@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoginUser, signInWithGoogle } from '../Redux/slice/authSlice'
 import GoogleIcon from '../../../server/controllers/GoogleIcon'
+import {jwtDecode} from 'jwt-decode'; // ✅ Correct import
 
 
 const LogIn = () => {
@@ -44,11 +45,32 @@ const LogIn = () => {
         resolver: zodResolver(LoginSchema)
     });
 
-    const onsubmit = (data) => {
-        dispatch(LoginUser(data))
-        console.log(data)
-        // navigate('/')
+    // const onsubmit = (data) => {
+    //     dispatch(LoginUser(data))
+    //     console.log(data)
+    //     // navigate('/')
+    // }
+
+  const onsubmit = async (data) => {
+    const response = await dispatch(LoginUser(data)).unwrap();
+    
+    console.log("Login Response:", response); // ✅ Debugging step
+
+    if (response.token) {
+        localStorage.setItem('token', response.token);
+        const decoded = jwtDecode(response.token);
+
+        console.log("Decoded Token:", decoded); // ✅ Debugging step
+
+        if (decoded.role === 'admin') {
+            navigate('/adminDashboard');
+        } else {
+            navigate('/');
+        }
+    } else {
+        console.error("Token missing from response");
     }
+};
 
     const [isLock, setIsLock] = useState(false)
     const [isLockC, setIsLockC] = useState(false)

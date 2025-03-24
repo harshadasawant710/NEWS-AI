@@ -12,7 +12,8 @@ export const Preferences = async (req, res) => {
         const user = await User.findById(id)
         //console.log(user)
         //console.log([...preferences])
-        user.preferences = [...preferences, ...preferences]
+        // user.preferences = [...preferences, ...preferences]
+        user.preferences = [...new Set(preferences)]; 
         await user.save()
         res.status(200).json({
             message: 'preferences save sucessfully'

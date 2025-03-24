@@ -18,9 +18,9 @@ export const fetchUsers = createAsyncThunk('/fetchUsers', async (_, { rejectWith
     }
 });
 
-export const deleteUsers = createAsyncThunk('/deleteUsers', async (_id, { rejectWithValue }) => {
+export const deleteUsers = createAsyncThunk('/deleteUsers', async (id, { rejectWithValue }) => {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/auth/users`);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/auth/users/${id}`);
         console.log(response.data)
         return response.data; // Ensure this matches backend response format
     } catch (error) {

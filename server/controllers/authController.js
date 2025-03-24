@@ -37,7 +37,7 @@ export const login = async (req, res) => {
         console.log("Cookie Set:", token);
 
         res.status(200).json({
-            // token,
+            token,
             preferences: user.preferences,
             message: 'login successful'
         })
