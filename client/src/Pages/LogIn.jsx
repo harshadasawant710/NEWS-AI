@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useDispatch, useSelector } from 'react-redux'
 import { LoginUser, signInWithGoogle } from '../Redux/slice/authSlice'
 import GoogleIcon from '../../../server/controllers/GoogleIcon'
-import {jwtDecode} from 'jwt-decode'; // ✅ Correct import
+import { jwtDecode } from 'jwt-decode'; // ✅ Correct import
 
 
 const LogIn = () => {
@@ -51,26 +51,26 @@ const LogIn = () => {
     //     // navigate('/')
     // }
 
-  const onsubmit = async (data) => {
-    const response = await dispatch(LoginUser(data)).unwrap();
-    
-    console.log("Login Response:", response); // ✅ Debugging step
+    const onsubmit = async (data) => {
+        const response = await dispatch(LoginUser(data)).unwrap();
 
-    if (response.token) {
-        localStorage.setItem('token', response.token);
-        const decoded = jwtDecode(response.token);
+        //console.log("Login Response:", response); // ✅ Debugging step
 
-        console.log("Decoded Token:", decoded); // ✅ Debugging step
+        if (response.token) {
+            localStorage.setItem('token', response.token);
+            const decoded = jwtDecode(response.token);
 
-        if (decoded.role === 'admin') {
-            navigate('/adminDashboard');
+            //console.log("Decoded Token:", decoded); // ✅ Debugging step
+
+            if (decoded.role === 'admin') {
+                navigate('/adminDashboard');
+            } else {
+                navigate('/');
+            }
         } else {
-            navigate('/');
+            //console.error("Token missing from response");
         }
-    } else {
-        console.error("Token missing from response");
-    }
-};
+    };
 
     const [isLock, setIsLock] = useState(false)
     const [isLockC, setIsLockC] = useState(false)
@@ -90,29 +90,33 @@ const LogIn = () => {
                 className='w-96 rounded-xl p-4 shadow-md bg-white'>
                 <h1 className='text-center mb-4 font-bold'>Welcome back</h1>
 
-                <form className='w-full' onSubmit={handleSubmit(onsubmit)}>
+                <form className='w-ful mx-5' onSubmit={handleSubmit(onsubmit)}>
                     <div className='flex gap-2 my-4'><Mail className='text-gray-600' size={20} />
                         <input type='email'
-                            className={errors.email ? 'border-red-700 border-b focus:outline-none' : 'focus:outline-none borber-b border-gray w-full'}
+                            className={errors.email ? 'border-red-700 border-b focus:outline-none w-full' : 'focus:outline-none borber-b border-gray w-full border-b border-gray-400'}
                             placeholder='Enter Email'
                             {...register("email")} />
                     </div>
 
                     {errors.email && <p className='text-red-700 flex gap-1'><TriangleAlert size={20} /> {errors.email.message}</p>}
 
-                    <div className='flex gap-2 my-4'><span onClick={handleChange} className='text-gray-600' >{isLock ? <Unlock size={20} /> : <Lock size={20} />}</span>
+                    <div className='flex gap-2 mt-4 mb-2'><span onClick={handleChange} className='text-gray-600' >{isLock ? <Unlock size={20} /> : <Lock size={20} />}</span>
                         <input type={changeInput ? "text" : "password"}
-                            className='focus:outline-none borber-b border-gray w-full'
+                            className={errors.password ? 'border-red-700 border-b focus:outline-none w-full' : 'focus:outline-none borber-b border-gray w-full border-b border-gray-400'}
                             placeholder='Enter password'
                             {...register("password")} />
                     </div>
 
                     {errors.password && <p className='text-red-700 flex gap-1'><TriangleAlert size={20} /> {errors.password.message}</p>}
-
-                    <Button fullWidth className='my-5' type='submit'>
+                    <div className='flex justify-end font-semibold text-gray-500 mb-3 text-xs'>
+                        <Link>Forget password?</Link>
+                    </div>
+                    <Button fullWidth className='mt-5 mb-2' type='submit'>
                         {loading ? <Loader size={16} color='white' /> : "LogIn"}
                     </Button>
-                    <Button fullWidth variant='outline' leftSection={<GoogleIcon/>} onClick={()=>dispatch(signInWithGoogle())}>Login with Google</Button>
+                    <p className='text-center text-gray-500 text-sm my-3 font-semibold'>Or Sign Up Using</p>
+
+                    <Button className='my-2' fullWidth variant='outline' leftSection={<GoogleIcon />} onClick={() => dispatch(signInWithGoogle())}>Login with Google</Button>
                     <p className='text-center text-gray-500'>Don't have an account? <Link to='/register' className='text-blue-500 text-bold'>Register</Link></p>
                 </form>
             </motion.div>

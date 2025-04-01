@@ -7,6 +7,14 @@ import { Bookmark, History, LogOut, User } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getCookie } from '../utils/utils';
 
+const getInitials = (name) => {
+    if (!name) return "U"; // Default to 'U' if no name
+    const words = name.split(" ");
+    return words.length > 1 
+        ? words[0][0] + words[1][0] 
+        : words[0][0];
+};
+
 const ProfileDropDown = () => {
 
     const navigate = useNavigate()
@@ -18,6 +26,8 @@ const ProfileDropDown = () => {
     }
 
     const email = getCookie('email');
+    const userName = getCookie('name'); // Get stored username from cookies
+    const initials = getInitials(userName).toUpperCase();
 
     return (
         <div className='me-25' style={{cursor:'pointer'}}>
@@ -25,7 +35,8 @@ const ProfileDropDown = () => {
 
             <Menu shadow="md" width={200}>
                 <Menu.Target>
-                    <Avatar radius="xl" />
+                    {/* <Avatar radius="xl" /> */}
+                    <Avatar color="cyan" radius="xl">{initials}</Avatar>
                 </Menu.Target>
 
                 <Menu.Dropdown>

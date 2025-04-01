@@ -18,6 +18,7 @@ const Catagory = lazy(()=> import ('./components/Catagory'))
 const About = lazy(()=> import ('./Pages/About'))
 const News = lazy(()=> import ('./Pages/News'))
 const AdminDashboard = lazy(()=> import ('./components/AdminDashboard'))
+const World = lazy(()=> import('./Pages/World'))
 
 
 const App = () => {
@@ -34,6 +35,7 @@ const App = () => {
             <Route path='/about' element={<About />}></Route>
             <Route path='/news' element={<News/>}></Route>
             <Route path='/adminDashboard' element={<AdminDashboard/>}></Route>
+            <Route path='/world' element={<World/>}></Route>
             <Route element={<PreferenceProtectRoutes />}></Route>
             <Route path='/preferences' element={<Preferences />}></Route>
           </Route>

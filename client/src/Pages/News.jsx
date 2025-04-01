@@ -75,7 +75,7 @@ export default function News() {
                 </Grid.Col>
 
                 <Grid.Col span={9}>
-                    <Title order={1}>Stay tuned for latest news</Title>
+                    <h1 className="text-5xl font-extrabold text-black">Stay tuned for <span className="text-cyan-500">Latest News</span></h1>
                     <Text size="lg" mt="sm">Get real-time content across the globe</Text>
                     <div>
                         {totalCount > 0 ? <span>Showing {totalCount} Results</span> : null}

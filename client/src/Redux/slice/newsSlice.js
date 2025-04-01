@@ -51,6 +51,20 @@ export const fetchAllNews = createAsyncThunk('/fetchallnews', async ({ currentPa
 
 })
 
+export const fetchWorldNews = createAsyncThunk(
+    'news/fetchWorldNews',
+    async (_, { rejectWithValue }) => {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/news?query=world,international,global`);
+            console.log("World News API Response:", response.data); // Debugging Log
+            return response.data.data; // Make sure this matches API response structure
+        } catch (error) {
+            console.error("Error fetching world news:", error);
+            return rejectWithValue(error.response?.data?.message || error.message);
+        }
+    }
+);
+
 const newsSlice = createSlice({
     name: 'news',
     initialState,
@@ -79,6 +93,18 @@ const newsSlice = createSlice({
             .addCase(fetchAllNews.rejected, (state) => {
                 state.loading = false
             })
+            .addCase(fetchWorldNews.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchWorldNews.fulfilled, (state, action) => {
+                state.loading = false;
+                state.worldNews = action.payload;
+            })
+            .addCase(fetchWorldNews.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            });
     }
 })
 
